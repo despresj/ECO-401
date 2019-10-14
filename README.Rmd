@@ -6,6 +6,7 @@ library(ggplot2)
 library(tidyverse)
 library(fredr)
 library(purrr)
+library(lubridate)
 
 #Package Manual
 #  https://cran.r-project.org/web/packages/fredr/fredr.pdf
@@ -16,28 +17,20 @@ fredr_set_key("5e546bf9dc0d38cf6e2db34bb0e9dcef")
 ```
 # R -----------------------------------------------------------------------
 ?frequency
-```{r GPD}
+
+```{r REAL_GDP}
 fredr_request(
   endpoint = "series/observations",
   series_id = "A191RL1Q225SBEA",
   observation_start = "1990-01-01",
-  observation_end = "9999-01-01"
-)%>%
-  arrange(desc(date))
+  observation_end = "9999-01-01",
+  frequency = "q",
+  units = "ch1") %>%
+  mutate(value = as.numeric(value))%>%
+  mutate(date = ymd(date))%>%
+ ggplot(mapping = aes( x = date, y = value)) + geom_line( color = "blue") + labs(title = "Real GDP", subtitle = "From Janurary 1990 to present", caption = "Source: Federal Reserve Bank of St. Louis" ) + theme_test()
 ```
 
-
-
-
-```{r GPD}
-fredr_request(
-  endpoint = "series/observations",
-  series_id = "A191RL1Q225SBEA",
-  observation_start = "1990-01-01",
-  observation_end = "9999-01-01"
-)%>%
-  arrange(desc(date))
-```
 
 ```{r Household_Consumption}
 fredr_request(
@@ -45,11 +38,11 @@ fredr_request(
   series_id = "DPCERL1Q225SBEA",
   observation_start = "1990-01-01",
   observation_end = "9999-01-01",
-  frequency = "q"
-)%>%
+  frequency = "q",
+  units = "ch1") %>%
   mutate(value = as.numeric(value))%>%
-  mutate(PCTCH = ((value - lag(value -1)) / value)* 100)%>%
-  arrange(desc(date))
+  mutate(date = ymd(date))%>%
+ ggplot(mapping = aes( x = date, y = value)) + geom_line( color = "blue") + labs(title = "Household_Consumption", subtitle = "From Janurary 1990 to present", caption = "Source: Federal Reserve Bank of St. Louis" ) + theme_test()
 ```
 
 
@@ -60,9 +53,10 @@ fredr_request(
   observation_start = "2015-01-01",
   observation_end = "9999-01-01",
   frequency = "q",
-  units = "pch"
-)%>%
-  arrange(desc(date))
+  units = "pch") %>%
+  mutate(value = as.numeric(value))%>%
+  mutate(date = ymd(date))%>%
+ ggplot(mapping = aes( x = date, y = value)) + geom_line( color = "blue") + labs(title = "Durables", subtitle = "From Janurary 2015 to present", caption = "Source: Federal Reserve Bank of St. Louis" ) + theme_test()
 ```
 
 ```{r non-Durables}
@@ -71,11 +65,11 @@ fredr_request(
   series_id = "PCNDGC96",
   observation_start = "2015-01-01",
   observation_end = "9999-01-01",
-  frequency = "q"
-)%>%
+  frequency = "q",
+  units = "pch") %>%
   mutate(value = as.numeric(value))%>%
-  mutate(PCTCH = ((value - lag(value -1)) / value) * 100)%>%
-  arrange(desc(date))
+  mutate(date = ymd(date))%>%
+ ggplot(mapping = aes( x = date, y = value)) + geom_line( color = "blue") + labs(title = "NON-Durables", subtitle = "From Janurary 2015 to present", caption = "Source: Federal Reserve Bank of St. Louis" ) + theme_test()
 ```
 
 
@@ -83,27 +77,15 @@ fredr_request(
 fredr_request(
   endpoint = "series/observations",
   series_id = "DPCERL1Q225SBEA",
-  observation_start = "1990-01-01",
+  observation_start = "2000-01-01",
   observation_end = "9999-01-01",
-)%>%
-  arrange(desc(date))
+  frequency = "q",
+  units = "pch") %>%
+  mutate(value = as.numeric(value))%>%
+  mutate(date = ymd(date))%>%
+ ggplot(mapping = aes( x = date, y = value)) + geom_line( color = "blue") + labs(title = "Personal Consumption", subtitle = "From Janurary 2000 to present", caption = "Source: Federal Reserve Bank of St. Louis" ) + theme_test()
 ```
 
-
-```{r Personal_Consumption}
-fredr_request(
-  endpoint = "series/observations",
-  series_id = "DPCERL1Q225SBEA",
-  observation_start = "1990-01-01",
-  observation_end = "9999-01-01",
-)%>%
-  arrange(desc(date))
-```
-
-
-```{r}
-fredr_series(series_id = "UNRATE")
-```
 
 
 #--------------------------------
