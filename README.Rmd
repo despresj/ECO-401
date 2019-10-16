@@ -1,3 +1,8 @@
+---
+output:
+  html_document: default
+  pdf_document: default
+---
 
 ``` {r Load}
 library(wesanderson)
@@ -30,7 +35,7 @@ fredr_request(
   units = "ch1") %>%
   mutate(value = as.numeric(value))%>%
   mutate(date = ymd(date))%>%
- ggplot(mapping = aes( x = date, y = value)) + geom_line( color = "seagreen", sie = 2) + geom_point( size = .1, color = "black") + labs(title = "Real GDP", subtitle = "From Janurary 1990 to present", caption = "Source: Federal Reserve Bank of St. Louis" ) + theme_test(base_size = 10) + labs( x= "Date", y = " ") 
+ ggplot(mapping = aes( x = date, y = value)) + geom_line( color = "midnightblue", size = 1) + geom_point( size = .1, color = "black") + labs(title = "Real GDP", subtitle = "From Janurary 1990 to present", caption = "Source: Federal Reserve Bank of St. Louis" ) + theme_test(base_size = 10) + labs( x= "Date", y = " ") 
 ```
 
 
@@ -74,8 +79,7 @@ fredr_request(
  ggplot(mapping = aes( x = date, y = value)) + geom_line( color = "blue") + labs(title = "NON-Durables", subtitle = "From Janurary 2015 to present", caption = "Source: Federal Reserve Bank of St. Louis" ) + theme_test(base_size = 10) + labs( x= "Date", y = " ")
 ```
 
-
-```{r Personal_Consumption}
+```{r Household _Consumption}
 fredr_request(
   endpoint = "series/observations",
   series_id = "DPCERL1Q225SBEA",
@@ -88,6 +92,199 @@ fredr_request(
  ggplot(mapping = aes( x = date, y = value)) + geom_line( color = "blue") + labs(title = "Personal Consumption", subtitle = "From Janurary 2000 to present", caption = "Source: Federal Reserve Bank of St. Louis" ) + theme_test(base_size = 10) + labs( x= "Date", y = " ")
 ```
 
+```{r Investment}
+fredr_request(
+  endpoint = "series/observations",
+  series_id = "A006RL1Q225SBEA",
+  observation_start = "2000-01-01",
+  observation_end = "9999-01-01",
+  frequency = "q",
+  units = "pch") %>%
+  mutate(value = as.numeric(value))%>%
+  mutate(date = ymd(date))
+```
+
+```{r non-res-fixed}
+#Real Private Nonresidential Fixed Investment
+fredr_request(
+  endpoint = "series/observations",
+  series_id = "PNFIC1",
+  observation_start = "2000-01-01",
+  observation_end = "9999-01-01",
+  frequency = "q",
+  units = "pch") %>%
+  mutate(value = as.numeric(value))%>%
+  mutate(date = ymd(date))
+```
+
+```{r}
+#Real Government Consumption Expenditures and Gross Investment
+fredr_request(
+  endpoint = "series/observations",
+  series_id = "GCEC1",
+  observation_start = "2000-01-01",
+  observation_end = "9999-01-01",
+  frequency = "q",
+  units = "pch") %>%
+  mutate(value = as.numeric(value))%>%
+  mutate(date = ymd(date))
+```
+
+```{r net-export}
+#Real Net Exports of Goods and Services
+fredr_request(
+  endpoint = "series/observations",
+  series_id = "NETEXC",
+  observation_start = "2000-01-01",
+  observation_end = "9999-01-01",
+  frequency = "q",
+  units = "pch") %>%
+  mutate(value = as.numeric(value))%>%
+  mutate(date = ymd(date))
+```
+
+```{r unemp}
+#Unemployment rate
+fredr_request(
+  endpoint = "series/observations",
+  series_id = "UNRATE",
+  observation_start = "2000-01-01",
+  observation_end = "9999-01-01",
+  frequency = "q",
+  units = "pch") %>%
+  mutate(value = as.numeric(value))%>%
+  mutate(date = ymd(date))
+```
+
+```{r u6}
+#Total Unemployed, Plus All Marginally Attached Workers Plus Total Employed Part Time for Economic Reasons, as a Percent of All Civilian Labor Force Plus All Marginally Attached Workers 
+fredr_request(
+  endpoint = "series/observations",
+  series_id = "U6RATE",
+  observation_start = "2000-01-01",
+  observation_end = "9999-01-01",
+  frequency = "q",
+  units = "pch") %>%
+  mutate(value = as.numeric(value))%>%
+  mutate(date = ymd(date))
+```
+
+```{r LFP-rate}
+#Civilian Labor Force Participation Rate: 25 to 54 years
+fredr_request(
+  endpoint = "series/observations",
+  series_id = "LNS11300060",
+  observation_start = "2000-01-01",
+  observation_end = "9999-01-01",
+  frequency = "q",
+  units = "pch") %>%
+  mutate(value = as.numeric(value))%>%
+  mutate(date = ymd(date))
+```
+
+```{r unemployment-insurance}
+#Unemployment insurance claims
+fredr_request(
+  endpoint = "series/observations",
+  series_id = "ICSA",
+  observation_start = "2000-01-01",
+  observation_end = "9999-01-01",
+  frequency = "q",
+  units = "pch") %>%
+  mutate(value = as.numeric(value))%>%
+  mutate(date = ymd(date))
+```
+
+```{r payroll}
+#All Employees, Total Nonfarm payroll
+fredr_request(
+  endpoint = "series/observations",
+  series_id = "PAYEMS",
+  observation_start = "2000-01-01",
+  observation_end = "9999-01-01",
+  frequency = "q",
+  units = "pch") %>%
+  mutate(value = as.numeric(value))%>%
+  mutate(date = ymd(date))
+```
+
+```{r hourly-earnings}
+#Average Hourly Earnings of All Employees
+fredr_request(
+  endpoint = "series/observations",
+  series_id = "CES0500000003",
+  observation_start = "2000-01-01",
+  observation_end = "9999-01-01",
+  frequency = "q",
+  units = "pch") %>%
+  mutate(value = as.numeric(value))%>%
+  mutate(date = ymd(date))
+```
+
+```{r new-housing-permits}
+#New private housing units authorized
+fredr_request(
+  endpoint = "series/observations",
+  series_id = "PERMIT",
+  observation_start = "2000-01-01",
+  observation_end = "9999-01-01",
+  frequency = "q",
+  units = "pch") %>%
+  mutate(value = as.numeric(value))%>%
+  mutate(date = ymd(date))
+```
+
+```{r g}
+#Real Government Consumption Expenditures and Gross Investment
+fredr_request(
+  endpoint = "series/observations",
+  series_id = "GCEC1",
+  observation_start = "2000-01-01",
+  observation_end = "9999-01-01",
+  frequency = "q",
+  units = "pch") %>%
+  mutate(value = as.numeric(value))%>%
+  mutate(date = ymd(date))
+```
+
+```{r pce-core}
+#PCE core
+fredr_request(
+  endpoint = "series/observations",
+  series_id = "PCEPI",
+  observation_start = "2000-01-01",
+  observation_end = "9999-01-01",
+  frequency = "m",
+  units = "pch") %>%
+  mutate(value = as.numeric(value))%>%
+  mutate(date = ymd(date))
+```
+
+```{r PCE headline}
+#PCE headline
+fredr_request(
+  endpoint = "series/observations",
+  series_id = "PCEPILFE",
+  observation_start = "2000-01-01",
+  observation_end = "9999-01-01",
+  frequency = "m",
+  units = "pch") %>%
+  mutate(value = as.numeric(value))%>%
+  mutate(date = ymd(date))
+```
+
+```{r Capacity-Utilization }
+#Capacity Utilization 
+fredr_request(
+  endpoint = "series/observations",
+  series_id = "TCU",
+  observation_start = "2000-01-01",
+  observation_end = "9999-01-01",
+  frequency = "m",
+  units = "pch") %>%
+  mutate(value = as.numeric(value))%>%
+  mutate(date = ymd(date))
+```
 
 
 #--------------------------------
