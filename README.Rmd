@@ -9,6 +9,9 @@ library(lubridate)
 
 #Package Manual
 #  https://cran.r-project.org/web/packages/fredr/fredr.pdf
+
+#color chart
+# https://www.nceas.ucsb.edu/~frazier/RSpatialGuides/colorPaletteCheatsheet.pdf
 ```
 
 ``` {r}
@@ -27,7 +30,7 @@ fredr_request(
   units = "ch1") %>%
   mutate(value = as.numeric(value))%>%
   mutate(date = ymd(date))%>%
- ggplot(mapping = aes( x = date, y = value)) + geom_line( color = "midnightblue", sie = 2) + geom_point( size = .1, color = "black") + labs(title = "Real GDP", subtitle = "From Janurary 1990 to present", caption = "Source: Federal Reserve Bank of St. Louis" ) + theme_test(base_size = 10) + labs( x= "Date", y = " ") 
+ ggplot(mapping = aes( x = date, y = value)) + geom_line( color = "seagreen", sie = 2) + geom_point( size = .1, color = "black") + labs(title = "Real GDP", subtitle = "From Janurary 1990 to present", caption = "Source: Federal Reserve Bank of St. Louis" ) + theme_test(base_size = 10) + labs( x= "Date", y = " ") 
 ```
 
 
