@@ -19,11 +19,10 @@ library(lubridate)
 # https://www.nceas.ucsb.edu/~frazier/RSpatialGuides/colorPaletteCheatsheet.pdf
 ```
 
-``` {r}
+``` {r key}
 fredr_set_key("5e546bf9dc0d38cf6e2db34bb0e9dcef")
 ```
 # R -----------------------------------------------------------------------
-?frequency
 
 ```{r REAL_GDP}
 fredr_request(
@@ -35,7 +34,14 @@ fredr_request(
   units = "lin") %>%
   mutate(value = as.numeric(value))%>%
   mutate(date = ymd(date))%>%
- ggplot(mapping = aes( x = date, y = value)) + geom_line( color = "midnightblue", size = 1) + geom_point( size = .1, color = "black") + labs(title = "Real GDP", subtitle = "From January 1990 to present", caption = "Source: Federal Reserve Bank of St. Louis" ) + theme_test(base_size = 10) + labs( x= "Date", y = "Percent Change") + geom_hline(yintercept = 0, size = .25)
+ ggplot(mapping = aes( x = date, y = value)) + 
+  geom_line( color = "black", size = 1.5) +
+  geom_line( color = "deepskyblue", size = .75)  +
+  geom_jitter( size = .1, color = "black", alpha = .1) +
+  labs(title = "Percent change in Real GDP", subtitle = "From January 1990 to present", caption = "Source: Federal Reserve Bank of St. Louis", vjust = 1000)  +
+  labs( x= "Date", y = "Percent Change") +
+  geom_hline(yintercept = 0, size = .1, color = "black", alpha = 1)+
+  theme_test(base_size = 40) 
 ```
 
 
@@ -215,7 +221,7 @@ fredr_request(
   series_id = "CES0500000003",
   observation_start = "2000-01-01",
   observation_end = "9999-01-01",
-  frequency = "q",
+  frequency = "m",
   units = "pch") %>%
   mutate(value = as.numeric(value))%>%
   mutate(date = ymd(date))
@@ -262,7 +268,7 @@ fredr_request(
 
 ```{r PCE headline}
 #PCE headline
-fredr_request(
+test <- fredr_request(
   endpoint = "series/observations",
   series_id = "PCEPILFE",
   observation_start = "2000-01-01",
