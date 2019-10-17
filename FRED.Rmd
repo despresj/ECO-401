@@ -32,10 +32,10 @@ fredr_request(
   observation_start = "1990-01-01",
   observation_end = "9999-01-01",
   frequency = "q",
-  units = "ch1") %>%
+  units = "lin") %>%
   mutate(value = as.numeric(value))%>%
   mutate(date = ymd(date))%>%
- ggplot(mapping = aes( x = date, y = value)) + geom_line( color = "midnightblue", size = 1) + geom_point( size = .1, color = "black") + labs(title = "Real GDP", subtitle = "From Janurary 1990 to present", caption = "Source: Federal Reserve Bank of St. Louis" ) + theme_test(base_size = 10) + labs( x= "Date", y = "Percent Change") + geom_hline(yintercept = 0, size = 1, linetype = "dotted")
+ ggplot(mapping = aes( x = date, y = value)) + geom_line( color = "midnightblue", size = 1) + geom_point( size = .1, color = "black") + labs(title = "Real GDP", subtitle = "From January 1990 to present", caption = "Source: Federal Reserve Bank of St. Louis" ) + theme_test(base_size = 10) + labs( x= "Date", y = "Percent Change") + geom_hline(yintercept = 0, size = .25)
 ```
 
 
@@ -46,7 +46,7 @@ fredr_request(
   observation_start = "1990-01-01",
   observation_end = "9999-01-01",
   frequency = "q",
-  units = "ch1") %>%
+  units = "lin") %>%
   mutate(value = as.numeric(value))%>%
   mutate(date = ymd(date))%>%
  ggplot(mapping = aes( x = date, y = value)) + geom_line( color = "blue") + labs(title = "Household_Consumption", subtitle = "From Janurary 1990 to present", caption = "Source: Federal Reserve Bank of St. Louis" ) + theme_test(base_size = 10) + labs( x= "Date", y = " ")
